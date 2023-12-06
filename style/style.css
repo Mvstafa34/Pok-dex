@@ -104,3 +104,44 @@ th, td {
 tr td:first-child {
     color: grey;
 }
+
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+td {
+
+}
+
+progress {
+    /* style rules */
+    background-color: rgba(0, 0, 0, 0.05);
+    /* chrome, edge, opera, safari apply "webkit" stylesheet for progress bar*/
+    -webkit-appearance: none;
+    accent-color: orangered; /* sep 2021 - mar 2022 */
+    border-radius: 10px;
+    flex: 1;
+    height: 4px;
+    max-width: 90%;
+  }
+  progress::-webkit-progress-bar {
+    /* style rules background in chrome, edge, opera */
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    flex: 1;
+  }
+  progress::-webkit-progress-value {
+    /* style rules chrome edge opera value bar colour */
+    background-color: orangered;
+    border-radius: 10px;
+    transition: width 0.4s ease-in;
+  }
+  progress::-moz-progress-bar {
+    /* style rules ff equivalent to ::-webkit-progress-value */
+    background-color: orangered;
+    border-radius: 10px;
+    transition: width 0.4s ease-in;
+  }
