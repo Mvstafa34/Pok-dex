@@ -1,0 +1,106 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato';
+}
+
+body {
+    background-color: darkturquoise;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#pokedex {
+    background-color: #FB6C6C;
+    color: white;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#pokedex div {
+    width: 100%;
+}
+
+.info-container {
+    background-color: white;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    margin-top: -40px;
+    padding: 70px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+#pokemonImage {
+    width: 20rem;
+    position: relative;
+    top: 3rem;
+}
+
+.card {
+    width: 30vw;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.card-buttons img {
+    width: 30px;
+}
+
+.card-name {
+    text-align: left;
+}
+
+.card-name h1 {
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.card-id {
+    text-align: right;
+}
+
+.card-type span {
+    padding: 5px 15px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.25)
+}
+
+.card-menu {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.card-menu div {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    padding: 0 15px 15px 15px;
+}
+
+.card-menu div span {
+    color: grey;
+}
+
+th, td {
+    padding: 5px 0;
+}
+
+tr td:first-child {
+    color: grey;
+}

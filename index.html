@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/font-faces.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body onload="loadPokemon()">
+    <div class="card">
+        <div id="pokedex">
+            <div class="card-buttons">
+                <img src="./img/icons8-links-100.png" alt="">
+                <img src="./img/icons8-gefällt-mir-96.png" alt="">
+            </div>
+            <div class="card-name">
+                <h1 id="pokemonName">Char</h1>
+            </div>
+            <div class="card-id">
+                <h3 id="pokemonID">#001</h3>
+            </div>
+            <div class="card-type">
+                <span>Grass</span>
+                <span>Poison</span>
+            </div>
+            <img id="pokemonImage">
+        </div>
+        <div class="info-container">
+            <div class="card-menu">
+                <div onclick="renderAbout(i)">
+                    <span>About</span>
+                </div>
+                <div onclick="renderBaseStats(i)">
+                    <span>Base Stats</span>
+                </div>
+                <div onclick="renderEvolution(i)">
+                    <span>Evolution</span>
+                </div>
+                <div onclick="renderMoves(i)">
+                    <span>Moves</span>
+                </div>
+            </div>
+            <!-- <table>
+                <tr>
+                    <td>Species</td>
+                    <td>Seed</td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                    <td>2'3,6(0.70cm)</td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>15.2 lbs (6.9 kg)</td>
+                </tr>
+                <tr>
+                    <td>Abilities</td>
+                    <td>Overgrow, Chlorophyl</td>
+                </tr>
+            </table> -->
+            <!-- TODO: Progress Bar für Base Stats bauen -->
+        </div>
+    </div>
+</body>
+
+</html>
