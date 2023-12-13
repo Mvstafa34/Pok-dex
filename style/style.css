@@ -11,6 +11,16 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: gray;
 }
 
 #pokedex {
@@ -37,6 +47,7 @@ body {
     flex-direction: column;
     justify-content: center;
     flex: 1;
+    overflow: hidden;
 }
 
 #pokemonImage {
@@ -50,6 +61,7 @@ body {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    max-height: 100vh;
 }
 
 .card-buttons {
@@ -97,12 +109,12 @@ body {
     color: grey;
 }
 
-th,
-td {
+.about th,
+.about td {
     padding: 5px 0;
 }
 
-tr td:first-child {
+.about tr td:first-child {
     color: grey;
 }
 
@@ -112,8 +124,6 @@ tr td:first-child {
     align-items: center;
     height: auto;
 }
-
-td {}
 
 progress {
     /* style rules */
@@ -157,6 +167,10 @@ progress::-moz-progress-bar {
 
 }
 
+.first-evolution {
+    padding-top: 0 !important;
+}
+
 .evolution {
     display: flex;
     justify-content: center;
@@ -172,9 +186,44 @@ progress::-moz-progress-bar {
 .evolution figure {
     display: inline-block;
     text-align: center;
+    width: 100px;
 }
 
 .level figcaption {
     font-weight: bold;
     color: grey
+}
+
+.moves {
+    overflow-y: scroll;
+    display: flex;
+}
+
+.moves table {
+    flex: 1;
+    text-align: center;
+    border-spacing: 0;
+}
+
+.moves table tr {
+    text-align: center;
+}
+
+.moves th {
+    padding: 5px 0;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+.moves td {
+    padding: 5px;
+}
+
+.moves td:nth-child(1n) {
+    text-align: center;
+}
+
+.moves tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
 }
