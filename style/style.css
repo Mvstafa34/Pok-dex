@@ -23,7 +23,8 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem
+    padding: 1rem;
+    /* background-color: #FFF; */
 }
 
 .logo {
@@ -285,6 +286,17 @@ progress::-moz-progress-bar {
 
 /* Pokedex -> */
 
+#pokedex {
+    display: flex;
+    margin-top: calc(17rem + 2px);
+    justify-content: center;
+    height: 100%;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 3.5rem;
+    overflow-y: auto;
+}
+
 /* Pokemon -> */
 
 .pokemon {
@@ -292,11 +304,11 @@ progress::-moz-progress-bar {
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    height: 14rem;
-    width: 18rem;
+    height: 11.5rem;
+    width: 16.5rem;
     background-color: #46D0B0;
     border-radius: 2.2rem;
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
     color: #FFF;
     background-image: url(../img/pokeball-filled.png);
     background-size: 125%;
@@ -306,12 +318,12 @@ progress::-moz-progress-bar {
 
 #pokemonID {
     color: #3FC6A6;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
 #pokemonName {
     align-self: flex-start;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
 }
 
 .pokemonContainer {
@@ -323,8 +335,8 @@ progress::-moz-progress-bar {
 }
 
 .pokemonContainer img {
-    height: 10rem;
-    width: 10rem;
+    height: 8.3rem;
+    width: 8.3rem;
     margin-top: -1rem;
 }
 
@@ -337,7 +349,7 @@ progress::-moz-progress-bar {
 }
 
 .pokemon-info span {
-    padding: 0.5rem 1.5rem;
+    padding: 0.4rem 1.25rem;
     background-color: #5DE1C7;
     border-radius: 2.5rem;
 }
