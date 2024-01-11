@@ -5,13 +5,62 @@
 }
 
 body {
-    background-color: darkturquoise;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo img {
+    width: 3rem;
+}
+
+.searchbar {
+    position: relative;
+}
+
+.searchbar input {
+    display: block;
+    height: 1.5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    border: 1px solid lightgray;
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    border-radius: 2rem;
+}
+
+.searchbar button {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    background: 0;
+    border: 0;
+    height: 1.5rem;
+}   
+
+.searchbar img {
+    height: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -23,7 +72,9 @@ body {
     background-color: gray;
 }
 
-#pokedex {
+/* Open Card -> */
+
+#openCard {
     background-color: #FB6C6C;
     color: white;
     padding: 24px;
@@ -31,9 +82,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url(../img/pokeball-filled.png);
+    background-position: 100px 230px;
+    background-size: 110%;
+    background-repeat: no-repeat;
 }
 
-#pokedex div {
+#openCard div {
     width: 100%;
 }
 
@@ -50,7 +105,7 @@ body {
     overflow: hidden;
 }
 
-#pokemonImage {
+#cardImage {
     width: 20rem;
     position: relative;
     top: 3rem;
@@ -226,4 +281,63 @@ progress::-moz-progress-bar {
 
 .moves tr:nth-child(even) {
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Pokedex -> */
+
+/* Pokemon -> */
+
+.pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 14rem;
+    width: 18rem;
+    background-color: #46D0B0;
+    border-radius: 2.2rem;
+    padding: 1rem 2rem;
+    color: #FFF;
+    background-image: url(../img/pokeball-filled.png);
+    background-size: 125%;
+    background-repeat: no-repeat;
+    background-position: 2rem 3rem;
+}
+
+#pokemonID {
+    color: #3FC6A6;
+    font-size: 1.5rem;
+}
+
+#pokemonName {
+    align-self: flex-start;
+    font-size: 1.75rem;
+}
+
+.pokemonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.pokemonContainer img {
+    height: 10rem;
+    width: 10rem;
+    margin-top: -1rem;
+}
+
+.pokemon-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: flex-start;
+    gap: 0.75rem
+}
+
+.pokemon-info span {
+    padding: 0.5rem 1.5rem;
+    background-color: #5DE1C7;
+    border-radius: 2.5rem;
 }

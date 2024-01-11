@@ -1,4 +1,4 @@
-let currentPokemon; 
+let currentPokemon;
 
 
 async function loadPokemon() {
@@ -12,8 +12,8 @@ async function loadPokemon() {
 
 
 function renderPokemonInfo() {
-    document.getElementById('pokemonName').innerHTML = capFirst(currentPokemon['name']);
-    document.getElementById('pokemonImage').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    document.getElementById('cardName').innerHTML = capFirst(currentPokemon['name']);
+    document.getElementById('cardImage').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
 }
 
 
