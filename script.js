@@ -1,4 +1,12 @@
 let currentPokemon;
+let id;
+let name;
+let types;
+let image;
+let color;
+let height;
+let weight;
+let abilities;
 
 
 /**
@@ -47,11 +55,6 @@ function capFirst(str) {
  * Renders the pokedex with the individual pokemons
  */
 async function renderPokedex() {
-    let id;
-    let name;
-    let types;
-    let image;
-    let color;
     let pokedex = document.getElementById('pokedex');
 
     for (let i = 1; i < 99; i++) {
@@ -70,16 +73,84 @@ async function renderPokedex() {
 
 
 
-function openPokemon(i) {
+async function openPokemon(i) {
+    await loadPokemon(i);
+
+    id = getID(i);
+    name = currentPokemon['name'];
+    types = getTypes();
+    image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    color = getColor(types);
+
+    height = getHeight();
+    weight = getWeight();
+    abilities = getAbilities();
 
 
+    changeMainCard(id, name, types, image, color);
+    changeAboutCard();
+
+    document.body.classList.add('overflow-h');
     document.getElementById('cardContainer').classList.remove('d-none');
 }
 
 
 function closePokemon() {
     document.getElementById('cardContainer').classList.add('d-none');
+    document.body.classList.remove('overflow-h');
 }
+
+
+function changeMainCard(id, name, types, image, color) {
+    document.getElementById('cardName').innerHTML = name;
+    document.getElementById('cardID').innerHTML = id;
+
+    document.getElementById('cardTypes').innerHTML = '';
+    for (let i = 0; i < types.length; i++) {
+        const type = types[i];
+        document.getElementById('cardTypes').innerHTML += `<span>${type}</span>`;
+    }
+
+    document.getElementById('cardImage').src = image;
+    document.getElementById('openCard').style = `background-color: ${color};`;
+}
+
+
+function changeAboutCard() {
+
+}
+
+
+function getHeight() {
+    let height = currentPokemon['height'];
+    let meters = height / 10;
+    let feet = meters * 3.2808;
+    let feetSplit = feet.toString().split('.');
+
+    return `${feetSplit[0]}'${feetSplit[1].substring(0, 2)}" (${meters}0 m)`
+}
+
+
+function getWeight() {
+    let weight = currentPokemon['weight'];
+    let kilograms = weight / 10;
+    let pounds = kilograms * 2.2046;
+
+    return `${pounds.toString().substring(0, 4)} lbs (${kilograms} kg)`
+}
+
+
+// function getAbilities() {
+//     let abilities = currentPokemon['abilities']
+//     let abilitiesArray = [];
+
+//     for (let i = 0; i < types.length; i++) {
+//         const type = types[i]['type']['name'];
+//         typesArray.push(type);
+//     };
+
+//     return typesArray;
+// }
 
 
 /**

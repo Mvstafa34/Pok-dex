@@ -27,6 +27,10 @@ body {
     display: none !important;
 }
 
+.overflow-h {
+    overflow: hidden;
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -134,7 +138,7 @@ nav {
 }
 
 .card-container {
-    position: absolute;
+    position: fixed;
     inset: 0;
     display: flex;
     justify-content: center;
