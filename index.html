@@ -26,241 +26,244 @@
     </nav>
 
 
-    <!-- <div class="card">
-        <div id="openCard">
-            <div class="card-buttons">
-                <img src="./img/icons8-links-100.png" alt="">
-                <img src="./img/icons8-gefällt-mir-96.png" alt="">
+    <div class="card-container d-none" id="cardContainer">
+        <div class="card">
+            <div id="openCard">
+                <div class="card-buttons">
+                    <img onclick="closePokemon()" src="./img/icons8-links-100.png" alt="Close">
+                    <img src="./img/icons8-gefällt-mir-96.png" alt="Favorite">
+                </div>
+                <div class="card-name">
+                    <h1 id="cardName">Char</h1>
+                </div>
+                <div class="card-id">
+                    <h3 id="cardID">#001</h3>
+                </div>
+                <div class="card-type">
+                    <span>Grass</span>
+                    <span>Poison</span>
+                </div>
+                <img id="cardImage" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png">
             </div>
-            <div class="card-name">
-                <h1 id="cardName">Char</h1>
+            <div class="info-container">
+                <div class="card-menu">
+                    <div onclick="renderAbout(i)">
+                        <span>About</span>
+                    </div>
+                    <div onclick="renderBaseStats(i)">
+                        <span>Base Stats</span>
+                    </div>
+                    <div onclick="renderEvolution(i)">
+                        <span>Evolution</span>
+                    </div>
+                    <div onclick="renderMoves(i)">
+                        <span>Moves</span>
+                    </div>
+                </div>
+    
+                <table class="about">
+                    <tr>
+                        <td>Species</td>
+                        <td>Seed</td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td>2'3,6(0.70cm)</td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td>
+                        <td>15.2 lbs (6.9 kg)</td>
+                    </tr>
+                    <tr>
+                        <td>Abilities</td>
+                        <td>Overgrow, Chlorophyl</td>
+                    </tr>
+                </table>
+    
+                <!-- <table>
+                    <tr>
+                        <td>HP</td>
+                        <td>45</td>
+                        <td>
+                            <div class="progress-bar"><progress max="255" value="45"></progress></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Attack</td>
+                        <td>60</td>
+                        <td>
+                            <div class="progress-bar"><progress max="255" value="60"></progress></div>
+                        </td>
+    
+                    </tr>
+                    <tr>
+                        <td>Defense</td>
+                        <td>48</td>
+                        <td>
+                            <div class="progress-bar"><progress max="255" value="48"></progress></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sp. Atk</td>
+                        <td>65</td>
+                        <td>
+                            <div class="progress-bar"><progress max="255" value="65"></progress></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sp. Def</td>
+                        <td>65</td>
+                        <td>
+                            <div class="progress-bar"><progress max="255" value="65"></progress></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Speed</td>
+                        <td>45</td>
+                        <td>
+                            <div class="progress-bar"><progress max="255" value="45"></progress></div>
+                        </td>
+                    </tr>
+                </table> -->
+    
+                <!-- <div class="evolution first-evolution">
+                    <figure>
+                        <img class="evolution-image"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="">
+                        <figcaption>Charmander</figcaption>
+                    </figure>
+                    <figure class="level">
+                        <img class="arrow-right" src="./img/icons8-rechts-100.png" alt="">
+                        <figcaption>Level 16</figcaption>
+                    </figure>
+    
+                    <figure>
+                        <img class="evolution-image"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" alt="">
+                        <figcaption>Charmeleon</figcaption>
+                    </figure>
+                </div>
+                <div class="evolution">
+                    <figure>
+                        <img class="evolution-image"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" alt="">
+                        <figcaption>Charmeleon</figcaption>
+                    </figure>
+                    <figure class="level">
+                        <img class="arrow-right" src="./img/icons8-rechts-100.png" alt="">
+                        <figcaption>Level 36</figcaption>
+                    </figure>
+                    <figure>
+                        <img class="evolution-image"
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="">
+                        <figcaption>Charizard</figcaption>
+                    </figure> -->
+    
+                    <!-- <div class="moves">
+                        <table>
+                            <tr>
+                                <th>Move</th>
+                                <th>Power</th>
+                                <th>Accuracy</th>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>Swords-dance</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Strength</td>
+                                <td>80</td>
+                                <td>100</td>
+                            </tr>
+                        </table>
+                    </div> -->
+    
+                </div>
             </div>
-            <div class="card-id">
-                <h3 id="cardID">#001</h3>
-            </div>
-            <div class="card-type">
-                <span>Grass</span>
-                <span>Poison</span>
-            </div>
-            <img id="cardImage">
         </div>
-        <div class="info-container">
-            <div class="card-menu">
-                <div onclick="renderAbout(i)">
-                    <span>About</span>
-                </div>
-                <div onclick="renderBaseStats(i)">
-                    <span>Base Stats</span>
-                </div>
-                <div onclick="renderEvolution(i)">
-                    <span>Evolution</span>
-                </div>
-                <div onclick="renderMoves(i)">
-                    <span>Moves</span>
-                </div>
-            </div>
+    </div>
 
-            <table class="about">
-                <tr>
-                    <td>Species</td>
-                    <td>Seed</td>
-                </tr>
-                <tr>
-                    <td>Height</td>
-                    <td>2'3,6(0.70cm)</td>
-                </tr>
-                <tr>
-                    <td>Weight</td>
-                    <td>15.2 lbs (6.9 kg)</td>
-                </tr>
-                <tr>
-                    <td>Abilities</td>
-                    <td>Overgrow, Chlorophyl</td>
-                </tr>
-            </table>
-
-            <table>
-                <tr>
-                    <td>HP</td>
-                    <td>45</td>
-                    <td>
-                        <div class="progress-bar"><progress max="255" value="45"></progress></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Attack</td>
-                    <td>60</td>
-                    <td>
-                        <div class="progress-bar"><progress max="255" value="60"></progress></div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Defense</td>
-                    <td>48</td>
-                    <td>
-                        <div class="progress-bar"><progress max="255" value="48"></progress></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Sp. Atk</td>
-                    <td>65</td>
-                    <td>
-                        <div class="progress-bar"><progress max="255" value="65"></progress></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Sp. Def</td>
-                    <td>65</td>
-                    <td>
-                        <div class="progress-bar"><progress max="255" value="65"></progress></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Speed</td>
-                    <td>45</td>
-                    <td>
-                        <div class="progress-bar"><progress max="255" value="45"></progress></div>
-                    </td>
-                </tr>
-            </table>
-
-            <div class="evolution first-evolution">
-                <figure>
-                    <img class="evolution-image"
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="">
-                    <figcaption>Charmander</figcaption>
-                </figure>
-                <figure class="level">
-                    <img class="arrow-right" src="./img/icons8-rechts-100.png" alt="">
-                    <figcaption>Level 16</figcaption>
-                </figure>
-
-                <figure>
-                    <img class="evolution-image"
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" alt="">
-                    <figcaption>Charmeleon</figcaption>
-                </figure>
-            </div>
-            <div class="evolution">
-                <figure>
-                    <img class="evolution-image"
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" alt="">
-                    <figcaption>Charmeleon</figcaption>
-                </figure>
-                <figure class="level">
-                    <img class="arrow-right" src="./img/icons8-rechts-100.png" alt="">
-                    <figcaption>Level 36</figcaption>
-                </figure>
-                <figure>
-                    <img class="evolution-image"
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="">
-                    <figcaption>Charizard</figcaption>
-                </figure>
-
-                <div class="moves">
-                    <table>
-                        <tr>
-                            <th>Move</th>
-                            <th>Power</th>
-                            <th>Accuracy</th>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                        <tr>
-                            <td>Swords-dance</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Strength</td>
-                            <td>80</td>
-                            <td>100</td>
-                        </tr>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-    </div> -->
 
     <main id="pokedex">
 

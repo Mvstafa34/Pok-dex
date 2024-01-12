@@ -1,3 +1,16 @@
+:root {
+    --green: #46D0B0;
+    --lightGreen: #A7B91F;
+    --red: #FA6D6D;
+    --blue: #77BFFE;
+    --yellow: #FFD970;
+    --purple: #7C538C;
+    --brown: #b0726d;
+    --grey: #A7A878;
+    --black: #303943;
+    --indigo: #6C79DB;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -8,9 +21,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+}
+
+.d-none {
+    display: none !important;
 }
 
 nav {
@@ -19,12 +33,11 @@ nav {
     left: 0;
     right: 0;
     height: 3rem;
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    /* background-color: #FFF; */
+    background-color: #FFF;
 }
 
 .logo {
@@ -87,6 +100,7 @@ nav {
     background-position: 100px 230px;
     background-size: 110%;
     background-repeat: no-repeat;
+    border-radius: 2rem 2rem 0 0;
 }
 
 #openCard div {
@@ -95,8 +109,7 @@ nav {
 
 .info-container {
     background-color: white;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-radius: 2rem;
     margin-top: -40px;
     padding: 70px 24px 24px 24px;
     display: flex;
@@ -114,10 +127,19 @@ nav {
 
 .card {
     width: 30vw;
-    border-radius: 10px;
+    border-radius: 5rem;
     display: flex;
     flex-direction: column;
     max-height: 100vh;
+}
+
+.card-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .card-buttons {
@@ -288,7 +310,7 @@ progress::-moz-progress-bar {
 
 #pokedex {
     display: flex;
-    margin-top: calc(17rem + 2px);
+    margin-top: 5rem;
     justify-content: center;
     height: 100%;
     flex-wrap: wrap;
@@ -306,7 +328,7 @@ progress::-moz-progress-bar {
     justify-content: space-between;
     height: 11.5rem;
     width: 16.5rem;
-    background-color: #46D0B0;
+    background-color: var(--lightTeal);
     border-radius: 2.2rem;
     padding: 0.75rem 1.5rem;
     color: #FFF;
@@ -317,7 +339,7 @@ progress::-moz-progress-bar {
 }
 
 #pokemonID {
-    color: #3FC6A6;
+    color: rgba(0, 0, 0, 0.25);
     font-size: 1.25rem;
 }
 
@@ -350,6 +372,6 @@ progress::-moz-progress-bar {
 
 .pokemon-info span {
     padding: 0.4rem 1.25rem;
-    background-color: #5DE1C7;
+    background-color: rgba(255, 255, 255, 0.25);
     border-radius: 2.5rem;
 }

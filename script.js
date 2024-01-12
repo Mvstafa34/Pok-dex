@@ -51,9 +51,10 @@ async function renderPokedex() {
     let name;
     let types;
     let image;
+    let color;
     let pokedex = document.getElementById('pokedex');
 
-    for (let i = 1; i < 30; i++) {
+    for (let i = 1; i < 99; i++) {
 
         await loadPokemon(i);
         const element = currentPokemon;
@@ -62,9 +63,22 @@ async function renderPokedex() {
         name = currentPokemon['name'];
         types = getTypes();
         image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-
-        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, i);
+        color = getColor(types);
+        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
     }
+}
+
+
+
+function openPokemon(i) {
+
+
+    document.getElementById('cardContainer').classList.remove('d-none');
+}
+
+
+function closePokemon() {
+    document.getElementById('cardContainer').classList.add('d-none');
 }
 
 
@@ -104,6 +118,55 @@ function getTypes() {
 
 
 /**
+ * Returns the color for the first given pokemon type
+ * @param {array} types - Array with all types of the pokemon
+ * @returns - Color Variable
+ */
+function getColor(types) {
+    let type = types[0];
+
+    switch (type) {
+        case 'grass':
+            return 'var(--green)';
+            break;
+        case 'bug':
+            return 'var(--lightGreen)';
+            break;
+        case 'fire':
+            return 'var(--red)';
+            break;
+        case 'water':
+            return 'var(--blue)';
+            break;
+        case 'fighting':
+        case 'normal':    
+            return 'var(--grey)';
+            break;
+        case 'electric':
+        case 'psychic':
+            return 'var(--yellow)';
+            break;
+        case 'poison':
+        case 'ghost':
+            return 'var(--purple)';
+            break;
+        case 'ground':
+        case 'rock':
+            return 'var(--brown)';
+            break;
+        case 'fairy':
+            return 'var(--indigo)';
+            break;
+        case 'dark':
+            return 'var(--black)';
+            break;
+        default:
+            return 'var(--grey)';
+    }
+}
+
+
+/**
  * Returns the HTML for every pokemon on the pokedex
  * 
  * @param {string} id - Pokedex-style ID of the pokemon
@@ -113,10 +176,10 @@ function getTypes() {
  * @param {number} i - ID of the pokemon
  * @returns - HTML
  */
-function returnPokedexHTML(id, name, types, image, i) {
+function returnPokedexHTML(id, name, types, image, color, i) {
     if (types.length == 1) {
         return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})">
+        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
             <span id="pokemonID">${id}</span>
             <h2 id="pokemonName">${name}</h2>
             <div class="pokemonContainer">
@@ -128,7 +191,7 @@ function returnPokedexHTML(id, name, types, image, i) {
         </div>`;
     } else if (types.length == 2) {
         return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})">
+        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
             <span id="pokemonID">${id}</span>
             <h2 id="pokemonName">${name}</h2>
             <div class="pokemonContainer">
@@ -141,7 +204,7 @@ function returnPokedexHTML(id, name, types, image, i) {
         </div>`;
     } else if (types.length == 3) {
         return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})">
+        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
             <span id="pokemonID">${id}</span>
             <h2 id="pokemonName">${name}</h2>
             <div class="pokemonContainer">
@@ -155,3 +218,9 @@ function returnPokedexHTML(id, name, types, image, i) {
         </div>`;
     }
 }
+
+//TODO: openPokemon(i) function
+
+
+
+//TODO: all names capFirst()
