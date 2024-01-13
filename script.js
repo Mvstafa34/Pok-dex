@@ -1,5 +1,4 @@
 let currentPokemon;
-let currentEvolutionChain;
 
 
 /**
@@ -186,40 +185,32 @@ function changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd) {
 
     document.getElementById('spd').innerHTML = spd;
     document.getElementById('spdProgress').value = spd;
-
-    //TODO: Change progres bar color to pokemon color
 }
 
 
-function renderEvolution() {
-    document.getElementById('cardInfo').innerHTML = returnEvolutionHTML();
-
-    let noEvolution;
-    let firstEvolution;
-    let secondEvolution;
-    let levelRequirement;
-}
-
-
-// /**
-//  * Sets "currentEvolutionChain" to the JSON of the given pokemon ID
-//  * 
-//  * @param {number} i - ID of the pokemon
-//  */
-// async function loadEvolutionChain(i) {
-//     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-//     let response = await fetch(url);
-//     currentPokemon = await response.json();
-
-//     console.log('Loaded pokemon', currentPokemon)
-// }
-
-
+/**
+ * Renders the moves-section of the card with the moves of "currentPokemon"
+ */
 function renderMoves() {
+    let color = getColor();
+    let moves = currentPokemon['moves']
+    let cardInfo = document.getElementById('cardInfo');
 
+    cardInfo.innerHTML = '';
+    
+    for (let i = 0; i < moves.length; i++) {
+        const move = moves[i]['move']['name'];
+        
+        cardInfo.innerHTML += /* html */`<span class="moves" style="background-color: ${color};">${move}</span>`
+    };
 }
 
 
+/**
+ * Returns the height of the "currentPokemon"
+ * 
+ * @returns - Height in feet and meters as a string
+ */
 function getHeight() {
     let height = currentPokemon['height'];
     let meters = height / 10;
@@ -235,6 +226,11 @@ function getHeight() {
 }
 
 
+/**
+ * Returns the weight of the "currentPokemon"
+ * 
+ * @returns - Weight in lbs and kg as a string
+ */
 function getWeight() {
     let weight = currentPokemon['weight'];
     let kilograms = weight / 10;

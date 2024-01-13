@@ -180,18 +180,18 @@ nav {
 .card-type span {
     padding: 0.5rem 1.5rem;
     border-radius: 2rem;
-    background-color: rgba(255, 255, 255, 0.25)
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .card-menu {
-    width: 100%;
+    width: calc(100% - 2rem);
     display: flex;
-    margin-bottom: 15px;
-    justify-content: center;
+    margin: 0 1rem 15px 1rem;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 }
 
 .card-menu div {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
     padding: 0 15px 15px 15px;
 }
 
@@ -203,6 +203,16 @@ nav {
 #cardInfo table {
     width: 100%;
     height: 100%;
+}
+
+#cardInfo {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 30vh;
+    overflow-y: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .about th,
@@ -227,7 +237,7 @@ progress {
     background-color: rgba(0, 0, 0, 0.05);
     /* chrome, edge, opera, safari apply "webkit" stylesheet for progress bar*/
     -webkit-appearance: none;
-    accent-color: orangered;
+    accent-color: #FF1C1C;
     border-radius: 10px;
     flex: 1;
     height: 4px;
@@ -243,14 +253,14 @@ progress::-webkit-progress-bar {
 
 progress::-webkit-progress-value {
     /* style rules chrome edge opera value bar colour */
-    background-color: orangered;
+    background-color: #FF1C1C;
     border-radius: 10px;
     transition: width 0.4s ease-in;
 }
 
 progress::-moz-progress-bar {
     /* style rules ff equivalent to ::-webkit-progress-value */
-    background-color: orangered;
+    background-color: #FF1C1C;
     border-radius: 10px;
     transition: width 0.4s ease-in;
 }
@@ -259,72 +269,17 @@ progress::-moz-progress-bar {
     width: 25px;
 }
 
-.evolution-image {
-    width: 75px;
-
-}
-
-.first-evolution {
-    padding-top: 0 !important;
-}
-
-.evolution {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 39px;
-    padding-top: 10px;
-}
-
-.evolution figure img {
-    vertical-align: top;
-}
-
-.evolution figure {
-    display: inline-block;
-    text-align: center;
-    width: 100px;
-}
-
 .level figcaption {
     font-weight: bold;
     color: grey
 }
 
 .moves {
-    overflow-y: scroll;
-    display: flex;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: white;
 }
-
-.moves table {
-    flex: 1;
-    text-align: center;
-    border-spacing: 0;
-}
-
-.moves table tr {
-    text-align: center;
-}
-
-.moves th {
-    padding: 5px 0;
-    position: sticky;
-    top: 0;
-    background-color: white;
-}
-
-.moves td {
-    padding: 5px;
-}
-
-.moves td:nth-child(1n) {
-    text-align: center;
-}
-
-.moves tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
 /* Pokedex -> */
 
 #pokedex {

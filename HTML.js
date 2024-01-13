@@ -52,6 +52,11 @@ function returnPokedexHTML(id, name, types, image, color, i) {
 }
 
 
+/**
+ * Returns the HTML for the about-section on the open card
+ * 
+ * @returns - HTML
+ */
 function returnAboutHTML() {
     return /* html */ `
     <table class="about">
@@ -73,8 +78,13 @@ function returnAboutHTML() {
         </tr>
     </table>`
 }
- 
 
+
+/**
+ * Returns the HTML for the base stats-section on the open card
+ * 
+ * @returns - HTML
+ */
 function returnBaseStatsHTML() {
     return /* html */ `
     <table>
@@ -122,42 +132,4 @@ function returnBaseStatsHTML() {
             </td>
         </tr>
     </table>`
-}
-
-
-function returnEvolutionHTML() {
-    return /* html */ `
-    <div class="evolution first-evolution">
-        <figure>
-            <img class="evolution-image"
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="">
-            <figcaption>Charmander</figcaption>
-        </figure>
-        <figure class="level">
-            <img class="arrow-right" src="./img/icons8-rechts-100.png" alt="">
-            <figcaption>Level 16</figcaption>
-        </figure>
-
-        <figure>
-            <img class="evolution-image"
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" alt="">
-            <figcaption>Charmeleon</figcaption>
-        </figure>
-    </div>
-    <div class="evolution">
-        <figure>
-            <img class="evolution-image"
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" alt="">
-            <figcaption>Charmeleon</figcaption>
-        </figure>
-        <figure class="level">
-            <img class="arrow-right" src="./img/icons8-rechts-100.png" alt="">
-            <figcaption>Level 36</figcaption>
-        </figure>
-        <figure>
-            <img class="evolution-image"
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="">
-            <figcaption>Charizard</figcaption>
-        </figure>
-    </div>`;
 }
