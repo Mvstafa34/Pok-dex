@@ -85,10 +85,11 @@ async function openPokemon(i) {
     height = getHeight();
     weight = getWeight();
     abilities = getAbilities();
+    baseExp = currentPokemon['base_experience'];
 
 
     changeMainCard(id, name, types, image, color);
-    changeAboutCard();
+    changeAboutCard(height, weight, abilities, baseExp);
 
     document.body.classList.add('overflow-h');
     document.getElementById('cardContainer').classList.remove('d-none');
@@ -116,8 +117,11 @@ function changeMainCard(id, name, types, image, color) {
 }
 
 
-function changeAboutCard() {
-
+function changeAboutCard(height, weight, abilities, baseExp) {
+    document.getElementById('aboutHeight').innerHTML = height;
+    document.getElementById('aboutWeight').innerHTML = weight;
+    document.getElementById('aboutAbilities').innerHTML = abilities;
+    document.getElementById('aboutBaseExp').innerHTML = baseExp;
 }
 
 
@@ -126,8 +130,13 @@ function getHeight() {
     let meters = height / 10;
     let feet = meters * 3.2808;
     let feetSplit = feet.toString().split('.');
+    meters = meters.toString();
+    
+    if (meters.indexOf('.') > -1) {
+        meters += '0';
+    }
 
-    return `${feetSplit[0]}'${feetSplit[1].substring(0, 2)}" (${meters}0 m)`
+    return `${feetSplit[0]}'${feetSplit[1].substring(0, 2)}" (${meters} m)`;
 }
 
 
@@ -135,22 +144,17 @@ function getWeight() {
     let weight = currentPokemon['weight'];
     let kilograms = weight / 10;
     let pounds = kilograms * 2.2046;
+    pounds = pounds.toString();
 
-    return `${pounds.toString().substring(0, 4)} lbs (${kilograms} kg)`
+    if (pounds.indexOf('.') > -1) {
+        pounds = pounds.substring(0, pounds.indexOf('.') + 2);
+    }
+
+    return `${pounds} lbs (${kilograms} kg)`;
 }
 
 
-// function getAbilities() {
-//     let abilities = currentPokemon['abilities']
-//     let abilitiesArray = [];
 
-//     for (let i = 0; i < types.length; i++) {
-//         const type = types[i]['type']['name'];
-//         typesArray.push(type);
-//     };
-
-//     return typesArray;
-// }
 
 
 /**
@@ -167,6 +171,24 @@ function getID(i) {
     } else if (i < 1000) {
         return '#' + i;
     }
+}
+
+
+function getAbilities() {
+    let abilities = currentPokemon['abilities']
+    let abilitiesString;
+
+    for (let i = 0; i < abilities.length; i++) {
+        const ability = abilities[i]['ability']['name'];
+
+        if (i == 0) {
+            abilitiesString = ability;
+        } else {
+            abilitiesString += ', ' + ability;
+        }
+    };
+
+    return abilitiesString;
 }
 
 
