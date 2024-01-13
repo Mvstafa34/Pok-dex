@@ -1,12 +1,5 @@
 let currentPokemon;
-let id;
-let name;
-let types;
-let image;
-let color;
-let height;
-let weight;
-let abilities;
+let currentEvolutionChain;
 
 
 /**
@@ -14,6 +7,37 @@ let abilities;
  */
 function initPokedex() {
     renderPokedex();
+}
+
+
+/**
+ * Renders the Pokemon-Info card to the "currentPokemon"
+ */
+function renderPokemonInfo() {
+    document.getElementById('cardName').innerHTML = capFirst(currentPokemon['name']);
+    document.getElementById('cardImage').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+}
+
+
+/**
+ * Renders the pokedex with the individual pokemons
+ */
+async function renderPokedex() {
+    let pokedex = document.getElementById('pokedex');
+
+    for (let i = 1; i < 151; i++) {
+
+        await loadPokemon(i);
+        const element = currentPokemon;
+
+        let id = getID(i);
+        let name = currentPokemon['name'];
+        let types = getTypes();
+        let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+        let color = getColor();
+
+        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
+    }
 }
 
 
@@ -32,76 +56,45 @@ async function loadPokemon(i) {
 
 
 /**
- * Renders the Pokemon-Info card to the "currentPokemon"
- */
-function renderPokemonInfo() {
-    document.getElementById('cardName').innerHTML = capFirst(currentPokemon['name']);
-    document.getElementById('cardImage').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-}
-
-
-/**
- * Capitalizes the first letter of a word
+ * Opens the card to the given pokemon
  * 
- * @param {string} str - A word
- * @returns - The word with first letter capitalized
+ * @param {number} i - Index of the pokemon
  */
-function capFirst(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-
-/**
- * Renders the pokedex with the individual pokemons
- */
-async function renderPokedex() {
-    let pokedex = document.getElementById('pokedex');
-
-    for (let i = 1; i < 99; i++) {
-
-        await loadPokemon(i);
-        const element = currentPokemon;
-
-        id = getID(i);
-        name = currentPokemon['name'];
-        types = getTypes();
-        image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-        color = getColor(types);
-        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
-    }
-}
-
-
-
 async function openPokemon(i) {
     await loadPokemon(i);
 
-    id = getID(i);
-    name = currentPokemon['name'];
-    types = getTypes();
-    image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    color = getColor(types);
-
-    height = getHeight();
-    weight = getWeight();
-    abilities = getAbilities();
-    baseExp = currentPokemon['base_experience'];
-
+    let id = getID(i);
+    let name = currentPokemon['name'];
+    let types = getTypes();
+    let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    let color = getColor();
 
     changeMainCard(id, name, types, image, color);
-    changeAboutCard(height, weight, abilities, baseExp);
+    renderAbout();
 
     document.body.classList.add('overflow-h');
     document.getElementById('cardContainer').classList.remove('d-none');
 }
 
 
+/**
+ * Closes the card
+ */
 function closePokemon() {
     document.getElementById('cardContainer').classList.add('d-none');
     document.body.classList.remove('overflow-h');
 }
 
 
+/**
+ * Changes the default main card information to the information of the pokemon
+ * 
+ * @param {string} id - ID of the pokemon in pokedex-style
+ * @param {string} name - Name of the pokemon
+ * @param {array} types - All types of the pokemon
+ * @param {string} image - Image-URL of the pokemon
+ * @param {string} color - Background color of the pokemon
+ */
 function changeMainCard(id, name, types, image, color) {
     document.getElementById('cardName').innerHTML = name;
     document.getElementById('cardID').innerHTML = id;
@@ -117,11 +110,113 @@ function changeMainCard(id, name, types, image, color) {
 }
 
 
+/**
+ * Renders the default about-section of the card
+ */
+function renderAbout() {
+    document.getElementById('cardInfo').innerHTML = returnAboutHTML()
+
+    let height = getHeight();
+    let weight = getWeight();
+    let abilities = getAbilities();
+    let baseExp = currentPokemon['base_experience'];
+
+    changeAboutCard(height, weight, abilities, baseExp);
+}
+
+
+/**
+ * Changes the card information in the about section to the information of the pokemon
+ * 
+ * @param {string} height 
+ * @param {string} weight 
+ * @param {string} abilities 
+ * @param {number} baseExp 
+ */
 function changeAboutCard(height, weight, abilities, baseExp) {
     document.getElementById('aboutHeight').innerHTML = height;
     document.getElementById('aboutWeight').innerHTML = weight;
     document.getElementById('aboutAbilities').innerHTML = abilities;
     document.getElementById('aboutBaseExp').innerHTML = baseExp;
+}
+
+
+/**
+ * Renders the default base stats-section of the card
+ */
+function renderBaseStats() {
+    document.getElementById('cardInfo').innerHTML = returnBaseStatsHTML();
+
+    let hp = currentPokemon['stats'][0]['base_stat'];
+    let atk = currentPokemon['stats'][1]['base_stat'];
+    let def = currentPokemon['stats'][2]['base_stat'];
+    let spAtk = currentPokemon['stats'][3]['base_stat'];
+    let spDef = currentPokemon['stats'][4]['base_stat'];
+    let spd = currentPokemon['stats'][5]['base_stat'];
+
+    changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd);
+}
+
+
+/**
+ * Changes the card information in the base stats section to the information of the pokemon
+ * 
+ * @param {number} hp - HP value of the pokemon
+ * @param {number} atk - Attack value of the pokemon
+ * @param {number} def - Defense value of the pokemon
+ * @param {number} spAtk - Special attack value of the pokemon
+ * @param {number} spDef - Special defense value of the pokemon
+ * @param {number} spd - Speed value of the pokemon
+ */
+function changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd) {
+    document.getElementById('hp').innerHTML = hp;
+    document.getElementById('hpProgress').value = hp;
+
+    document.getElementById('atk').innerHTML = atk;
+    document.getElementById('atkProgress').value = atk;
+
+    document.getElementById('def').innerHTML = def;
+    document.getElementById('defProgress').value = def;
+
+    document.getElementById('spAtk').innerHTML = spAtk;
+    document.getElementById('spAtkProgress').value = spAtk;
+
+    document.getElementById('spDef').innerHTML = spDef;
+    document.getElementById('spDefProgress').value = spDef;
+
+    document.getElementById('spd').innerHTML = spd;
+    document.getElementById('spdProgress').value = spd;
+
+    //TODO: Change progres bar color to pokemon color
+}
+
+
+function renderEvolution() {
+    document.getElementById('cardInfo').innerHTML = returnEvolutionHTML();
+
+    let noEvolution;
+    let firstEvolution;
+    let secondEvolution;
+    let levelRequirement;
+}
+
+
+// /**
+//  * Sets "currentEvolutionChain" to the JSON of the given pokemon ID
+//  * 
+//  * @param {number} i - ID of the pokemon
+//  */
+// async function loadEvolutionChain(i) {
+//     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+//     let response = await fetch(url);
+//     currentPokemon = await response.json();
+
+//     console.log('Loaded pokemon', currentPokemon)
+// }
+
+
+function renderMoves() {
+
 }
 
 
@@ -154,9 +249,6 @@ function getWeight() {
 }
 
 
-
-
-
 /**
  * Returns the ID in the pokedex-style (#000)
  * 
@@ -174,6 +266,11 @@ function getID(i) {
 }
 
 
+/**
+ * Returns the abilities of the "currentPokemon"
+ * 
+ * @returns - All abilities as a string
+ */
 function getAbilities() {
     let abilities = currentPokemon['abilities']
     let abilitiesString;
@@ -212,11 +309,11 @@ function getTypes() {
 
 /**
  * Returns the color for the first given pokemon type
- * @param {array} types - Array with all types of the pokemon
+ * 
  * @returns - Color Variable
  */
-function getColor(types) {
-    let type = types[0];
+function getColor() {
+    let type = currentPokemon['types'][0]['type']['name'];
 
     switch (type) {
         case 'grass':
@@ -260,60 +357,12 @@ function getColor(types) {
 
 
 /**
- * Returns the HTML for every pokemon on the pokedex
+ * Capitalizes the first letter of a word
  * 
- * @param {string} id - Pokedex-style ID of the pokemon
- * @param {string} name - Name of the pokemon
- * @param {array} types - All types of the pokemon
- * @param {string} image - Image of the pokemon
- * @param {number} i - ID of the pokemon
- * @returns - HTML
+ * @param {string} str - A word
+ * @returns - The word with first letter capitalized
  */
-function returnPokedexHTML(id, name, types, image, color, i) {
-    if (types.length == 1) {
-        return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
-            <span id="pokemonID">${id}</span>
-            <h2 id="pokemonName">${name}</h2>
-            <div class="pokemonContainer">
-                <div class="pokemon-info">
-                    <span>${types[0]}</span>
-                </div>
-                <img src="${image}" alt="">
-            </div>
-        </div>`;
-    } else if (types.length == 2) {
-        return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
-            <span id="pokemonID">${id}</span>
-            <h2 id="pokemonName">${name}</h2>
-            <div class="pokemonContainer">
-                <div class="pokemon-info">
-                    <span>${types[0]}</span>
-                    <span>${types[1]}</span>
-                </div>
-                <img src="${image}" alt="">
-            </div>
-        </div>`;
-    } else if (types.length == 3) {
-        return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
-            <span id="pokemonID">${id}</span>
-            <h2 id="pokemonName">${name}</h2>
-            <div class="pokemonContainer">
-                <div class="pokemon-info">
-                    <span>${types[0]}</span>
-                    <span>${types[1]}</span>
-                    <span>${types[2]}</span>
-                </div>
-                <img src="${image}" alt="">
-            </div>
-        </div>`;
-    }
+function capFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-//TODO: openPokemon(i) function
-
-
-
 //TODO: all names capFirst()

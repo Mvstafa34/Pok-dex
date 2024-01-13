@@ -8,6 +8,7 @@
     <title>Pokédex</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/font-faces.css">
+    <script src="HTML.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -47,38 +48,41 @@
             </div>
             <div class="info-container">
                 <div class="card-menu">
-                    <div onclick="renderAbout(i)">
+                    <div onclick="renderAbout()">
                         <span>About</span>
                     </div>
-                    <div onclick="renderBaseStats(i)">
+                    <div onclick="renderBaseStats()">
                         <span>Base Stats</span>
                     </div>
-                    <div onclick="renderEvolution(i)">
+                    <div onclick="renderEvolution()">
                         <span>Evolution</span>
                     </div>
-                    <div onclick="renderMoves(i)">
+                    <div onclick="renderMoves()">
                         <span>Moves</span>
                     </div>
                 </div>
-    
-                <table class="about">
-                    <tr>
-                        <td>Height</td>
-                        <td id="aboutHeight">2'3,6(0.70cm)</td>
-                    </tr>
-                    <tr>
-                        <td>Weight</td>
-                        <td id="aboutWeight">15.2 lbs (6.9 kg)</td>
-                    </tr>
-                    <tr>
-                        <td>Abilities</td>
-                        <td id="aboutAbilities">Overgrow, Chlorophyl</td>
-                    </tr>
-                    <tr>
-                        <td>Base Exp.</td>
-                        <td id="aboutBaseExp">64</td>
-                    </tr>
-                </table>
+
+                <div id="cardInfo">
+                    <table class="about">
+                        <tr>
+                            <td>Height</td>
+                            <td id="aboutHeight">2'3,6(0.70cm)</td>
+                        </tr>
+                        <tr>
+                            <td>Weight</td>
+                            <td id="aboutWeight">15.2 lbs (6.9 kg)</td>
+                        </tr>
+                        <tr>
+                            <td>Abilities</td>
+                            <td id="aboutAbilities">Overgrow, Chlorophyl</td>
+                        </tr>
+                        <tr>
+                            <td>Base Exp.</td>
+                            <td id="aboutBaseExp">64</td>
+                        </tr>
+                    </table>
+                </div>
+
     
                 <!-- <table>
                     <tr>
