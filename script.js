@@ -1,4 +1,5 @@
 let currentPokemon;
+let pokemonNames = [];
 
 
 /**
@@ -23,8 +24,9 @@ function renderPokemonInfo() {
  */
 async function renderPokedex() {
     let pokedex = document.getElementById('pokedex');
+    pokedex.innerHTML = '';
 
-    for (let i = 1; i < 151; i++) {
+    for (let i = 1; i < 30; i++) {
 
         await loadPokemon(i);
         const element = currentPokemon;
@@ -34,6 +36,7 @@ async function renderPokedex() {
         let types = getTypes();
         let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let color = getColor();
+        pokemonNames.push(name);
 
         pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
     }
@@ -49,9 +52,33 @@ async function loadPokemon(i) {
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
     currentPokemon = await response.json();
-
-    console.log('Loaded pokemon', currentPokemon)
 }
+
+
+async function filterPokedex() {
+    let search = document.getElementById('search').value.toLowerCase()
+    let pokedex = document.getElementById('pokedex');
+
+    pokedex.innerHTML = '';
+
+    for (let i = 1; i < 151; i++) {
+
+        await loadPokemon(i);
+        const element = currentPokemon;
+
+        let id = getID(i);
+        let name = currentPokemon['name'];
+        let types = getTypes();
+        let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+        let color = getColor();
+        pokemonNames.push(name);
+
+        if (name.includes(search)) {
+            pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
+        }
+    }
+}
+//TODO: Fix search and lazy loading
 
 
 /**
@@ -185,6 +212,8 @@ function changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd) {
 
     document.getElementById('spd').innerHTML = spd;
     document.getElementById('spdProgress').value = spd;
+
+    changeProgressColor();
 }
 
 
@@ -203,6 +232,17 @@ function renderMoves() {
         
         cardInfo.innerHTML += /* html */`<span class="moves" style="background-color: ${color};">${move}</span>`
     };
+}
+
+
+/**
+ * Changes the color of the progress bar to the "currentPokemon" color
+ */
+function changeProgressColor() {
+    document.querySelectorAll('progress').forEach((element) => {
+        element.className = '';
+        element.classList.add(`progress-${getColor().substring(6, getColor().length - 1)}`);
+    });
 }
 
 
