@@ -8,8 +8,7 @@
     --brown: #b0726d;
     --grey: #A7A878;
     --black: #303943;
-    --indigo: #6C79DB;
-    /* TODO: change color for fairy? more like pink */
+    --pink: #FDB8E8;
 }
 
 * {
@@ -376,16 +375,16 @@ progress::-moz-progress-bar {
     accent-color: var(--black) !important;
 }
 
-.progress-indigo::-webkit-progress-value {
-    background-color: var(--indigo) !important;
+.progress-pink::-webkit-progress-value {
+    background-color: var(--pink) !important;
 }
 
-.progress-indigo::-moz-progress-bar {
-    background-color: var(--indigo) !important;
+.progress-pink::-moz-progress-bar {
+    background-color: var(--pink) !important;
 }
 
-.progress-indigo {
-    accent-color: var(--indigo) !important;
+.progress-pink {
+    accent-color: var(--pink) !important;
 }
 
 /* Normal CSS -> */

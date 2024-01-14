@@ -26,13 +26,13 @@ async function renderPokedex() {
     let pokedex = document.getElementById('pokedex');
     pokedex.innerHTML = '';
 
-    for (let i = 1; i < 30; i++) {
+    for (let i = 1; i < 99; i++) {
 
         await loadPokemon(i);
         const element = currentPokemon;
 
         let id = getID(i);
-        let name = currentPokemon['name'];
+        let name = capFirst(currentPokemon['name']);
         let types = getTypes();
         let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let color = getColor();
@@ -67,13 +67,13 @@ async function filterPokedex() {
         const element = currentPokemon;
 
         let id = getID(i);
-        let name = currentPokemon['name'];
+        let name = capFirst(currentPokemon['name']);
         let types = getTypes();
         let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let color = getColor();
         pokemonNames.push(name);
 
-        if (name.includes(search)) {
+        if (name.toLowerCase().includes(search)) {
             pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
         }
     }
@@ -90,7 +90,7 @@ async function openPokemon(i) {
     await loadPokemon(i);
 
     let id = getID(i);
-    let name = currentPokemon['name'];
+    let name = capFirst(currentPokemon['name']);
     let types = getTypes();
     let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     let color = getColor();
@@ -230,7 +230,7 @@ function renderMoves() {
     for (let i = 0; i < moves.length; i++) {
         const move = moves[i]['move']['name'];
         
-        cardInfo.innerHTML += /* html */`<span class="moves" style="background-color: ${color};">${move}</span>`
+        cardInfo.innerHTML += /* html */`<span class="moves" style="background-color: ${color};">${capFirst(move)}</span>`
     };
 }
 
@@ -315,9 +315,9 @@ function getAbilities() {
         const ability = abilities[i]['ability']['name'];
 
         if (i == 0) {
-            abilitiesString = ability;
+            abilitiesString = capFirst(ability);
         } else {
-            abilitiesString += ', ' + ability;
+            abilitiesString += ', ' + capFirst(ability);
         }
     };
 
@@ -336,7 +336,7 @@ function getTypes() {
 
     for (let i = 0; i < types.length; i++) {
         const type = types[i]['type']['name'];
-        typesArray.push(type);
+        typesArray.push(capFirst(type));
     };
 
     return typesArray;
@@ -350,6 +350,12 @@ function getTypes() {
  */
 function getColor() {
     let type = currentPokemon['types'][0]['type']['name'];
+
+    if (type == 'normal') {
+        if (currentPokemon['types'][1]) {
+            type = currentPokemon['types'][1]['type']['name'];
+        };
+    };
 
     switch (type) {
         case 'grass':
@@ -381,7 +387,7 @@ function getColor() {
             return 'var(--brown)';
             break;
         case 'fairy':
-            return 'var(--indigo)';
+            return 'var(--pink)';
             break;
         case 'dark':
             return 'var(--black)';
