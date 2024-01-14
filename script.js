@@ -137,10 +137,17 @@ function changeMainCard(id, name, types, image, color) {
 
 
 /**
- * Renders the default about-section of the card
+ * Renders the default about-section of the card and selects the tab
  */
 function renderAbout() {
-    document.getElementById('cardInfo').innerHTML = returnAboutHTML()
+    document.getElementById('cardInfo').innerHTML = returnAboutHTML();
+    let selectedTab = document.querySelector('.card-menu-selected');
+
+    if (selectedTab) {
+        selectedTab.classList.remove('card-menu-selected');
+    };
+
+    document.getElementById('about').classList.add('card-menu-selected');
 
     let height = getHeight();
     let weight = getWeight();
@@ -168,10 +175,17 @@ function changeAboutCard(height, weight, abilities, baseExp) {
 
 
 /**
- * Renders the default base stats-section of the card
+ * Renders the default base stats-section of the card and selects the tab
  */
 function renderBaseStats() {
     document.getElementById('cardInfo').innerHTML = returnBaseStatsHTML();
+    let selectedTab = document.querySelector('.card-menu-selected');
+
+    if (selectedTab) {
+        selectedTab.classList.remove('card-menu-selected');
+    };
+
+    document.getElementById('baseStats').classList.add('card-menu-selected');
 
     let hp = currentPokemon['stats'][0]['base_stat'];
     let atk = currentPokemon['stats'][1]['base_stat'];
@@ -218,12 +232,19 @@ function changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd) {
 
 
 /**
- * Renders the moves-section of the card with the moves of "currentPokemon"
+ * Renders the moves-section of the card with the moves of "currentPokemon" and selects the tab
  */
 function renderMoves() {
     let color = getColor();
     let moves = currentPokemon['moves']
     let cardInfo = document.getElementById('cardInfo');
+    let selectedTab = document.querySelector('.card-menu-selected');
+
+    if (selectedTab) {
+        selectedTab.classList.remove('card-menu-selected');
+    };
+
+    document.getElementById('moves').classList.add('card-menu-selected');
 
     cardInfo.innerHTML = '';
     
@@ -312,13 +333,19 @@ function getAbilities() {
     let abilitiesString;
 
     for (let i = 0; i < abilities.length; i++) {
-        const ability = abilities[i]['ability']['name'];
+        let ability = abilities[i]['ability']['name'];
+
+        if (ability.includes('-')) {
+            let abilitySplit = ability.split('-');
+            
+            ability = `${abilitySplit[0]} ${capFirst(abilitySplit[1])}`;
+        };
 
         if (i == 0) {
             abilitiesString = capFirst(ability);
         } else {
             abilitiesString += ', ' + capFirst(ability);
-        }
+        };
     };
 
     return abilitiesString;
@@ -407,4 +434,3 @@ function getColor() {
 function capFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
-//TODO: all names capFirst()

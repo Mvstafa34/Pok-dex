@@ -14,13 +14,13 @@
 
 <body onload="initPokedex()">
     <nav>
-        <div class="logo">
+        <div class="logo" onclick="window.location.reload();">
             <h1>Pokédex</h1>
             <img src="./img/logo.svg" alt="Pokeball">
         </div>
         <form class="searchbar">
             <input type="text" id="search" placeholder="Name or Number" oninput="filterPokedex()">
-            <button>
+            <button onclick="filterPokedex()">
                 <img src="./img/lupe.png" alt="Lupe">
             </button>
         </form>
@@ -49,13 +49,13 @@
             </div>
             <div class="info-container">
                 <div class="card-menu">
-                    <div onclick="renderAbout()">
+                    <div id="about" onclick="renderAbout()">
                         <span>About</span>
                     </div>
-                    <div onclick="renderBaseStats()">
+                    <div id="baseStats" onclick="renderBaseStats()">
                         <span>Base Stats</span>
                     </div>
-                    <div onclick="renderMoves()">
+                    <div id="moves" onclick="renderMoves()">
                         <span>Moves</span>
                     </div>
                 </div>
