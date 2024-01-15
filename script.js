@@ -1,7 +1,9 @@
 let currentPokemon;
-let allPokemon = [];
-let loadedPokedex;
+let allPokemonNames;
+let searchTerm;
+let loadedPokedex = 0;
 let rendering = false;
+let filtering = false;
 
 
 window.addEventListener('scroll', scrollCallbackFn);
@@ -38,8 +40,15 @@ async function bottomReached() {
  * Initializes the pokedex
  */
 async function initPokedex() {
-
+    loadPokemonNames();
     await renderPokedex();
+}
+
+
+async function loadPokemonNames() {
+    let url = 'https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0';
+    let response = await fetch(url);
+    allPokemonNames = await response.json();
 }
 
 
@@ -61,12 +70,7 @@ async function renderPokedex() {
 
     for (let i = 1; i < 31; i++) {
 
-        if (allPokemon.length > i) {
-            currentPokemon = allPokemon[i - 1];
-        } else {
-            await loadPokemon(i);
-            allPokemon.push(currentPokemon);
-        };
+        await loadPokemon(i);
 
         let id = getID(i);
         let name = capFirst(currentPokemon['name']);
@@ -74,8 +78,12 @@ async function renderPokedex() {
         let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let color = getColor();
 
-        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
-    }
+        if (filtering) {
+            return;
+        } else {
+            pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
+        };
+    };
     loadedPokedex = 31;
 }
 
@@ -88,12 +96,8 @@ async function renderMorePokedex() {
 
     for (let i = loadedPokedex; i < loadedPokedex + 30; i++) {
 
-        if (allPokemon.length > i) {
-            currentPokemon = allPokemon[i - 1];
-        } else {
-            await loadPokemon(i);
-            allPokemon.push(currentPokemon);
-        };
+        await loadPokemon(i);
+
 
         let id = getID(i);
         let name = capFirst(currentPokemon['name']);
@@ -101,7 +105,11 @@ async function renderMorePokedex() {
         let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let color = getColor();
 
-        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
+        if (filtering) {
+            return;
+        } else {
+            pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
+        };
     }
     loadedPokedex += 30;
 }
@@ -122,33 +130,44 @@ async function loadPokemon(i) {
 async function filterPokedex() {
     let search = document.getElementById('search').value.toLowerCase()
     let pokedex = document.getElementById('pokedex');
+    filtering = true;
 
     pokedex.innerHTML = '';
-    pokemonNames = [];
 
-    await filterPokemon(search);
-
+    if (search == '') {
+        filtering = false;
+        renderPokedex();
+        return;
+    } else {
+        searchTerm = search;
+        await filterPokemon(search);
+    }
 }
-//TODO: Fix search and lazy loading
 
 
 async function filterPokemon(search) {
-    for (let i = 1; i < allPokemon.length; i++) {
+    for (let i = 1; i < 500; i++) {
+        
+        let pokemonName = allPokemonNames['results'][i - 1]['name'];  
 
-        currentPokemon = allPokemon[i - 1];
+        if (pokemonName.startsWith(search)) {
+            await loadPokemon(i);
 
-        let name = capFirst(currentPokemon['name']);
-        if (name.toLowerCase().includes(search)) {
+            let name = capFirst(currentPokemon['name']);
             let id = getID(i);
             let types = getTypes();
             let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
             let color = getColor();
 
+            if (!filtering ||searchTerm != search) {
+                return;
+            }
+
             pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
         }
     }
 }
-// TODO: Add search by ID
+
 
 /**
  * Opens the card to the given pokemon
