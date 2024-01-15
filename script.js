@@ -6,36 +6,6 @@ let rendering = false;
 let filtering = false;
 
 
-window.addEventListener('scroll', scrollCallbackFn);
-
-
-/**
- * Checks if the user has scrolled to the bottom of the page
- */
-function scrollCallbackFn() {
-    if (rendering) {
-        return;
-    }
-
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = window.scrollY;
-
-    if (Math.ceil(scrolled) === scrollable) {
-        bottomReached();
-    };
-};
-
-
-/**
- * Executes rendering more pokemon and prevents from multiple executes while rendering
- */
-async function bottomReached() {
-    rendering = true;
-    await renderMorePokedex();
-    rendering = false;
-}
-
-
 /**
  * Initializes the pokedex
  */
@@ -45,19 +15,25 @@ async function initPokedex() {
 }
 
 
-async function loadPokemonNames() {
-    let url = 'https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0';
+/**
+ * Sets "currentPokemon" to the JSON of the given pokemon ID
+ * 
+ * @param {number} i - ID of the pokemon
+ */
+async function loadPokemon(i) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
-    allPokemonNames = await response.json();
+    currentPokemon = await response.json();
 }
 
 
 /**
- * Renders the Pokemon-Info card to the "currentPokemon"
+ * Loads a JSON with all pokemon names in "allPokemonNames"
  */
-function renderPokemonInfo() {
-    document.getElementById('cardName').innerHTML = capFirst(currentPokemon['name']);
-    document.getElementById('cardImage').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+async function loadPokemonNames() {
+    let url = 'https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0';
+    let response = await fetch(url);
+    allPokemonNames = await response.json();
 }
 
 
@@ -110,23 +86,16 @@ async function renderMorePokedex() {
         } else {
             pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
         };
-    }
+    };
     loadedPokedex += 30;
 }
 
 
 /**
- * Sets "currentPokemon" to the JSON of the given pokemon ID
+ * Prepares the search function
  * 
- * @param {number} i - ID of the pokemon
+ * @returns
  */
-async function loadPokemon(i) {
-    let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-    let response = await fetch(url);
-    currentPokemon = await response.json();
-}
-
-
 async function filterPokedex() {
     let search = document.getElementById('search').value.toLowerCase()
     let pokedex = document.getElementById('pokedex');
@@ -141,10 +110,16 @@ async function filterPokedex() {
     } else {
         searchTerm = search;
         await filterPokemon(search);
-    }
+    };
 }
 
 
+/**
+ * Checks if the pokemon name starts with the search string and displays it
+ * 
+ * @param {string} search - The input in the searchbar
+ * @returns 
+ */
 async function filterPokemon(search) {
     for (let i = 1; i < 500; i++) {
         
@@ -161,11 +136,11 @@ async function filterPokemon(search) {
 
             if (!filtering ||searchTerm != search) {
                 return;
-            }
+            };
 
             pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
-        }
-    }
+        };
+    };
 }
 
 
@@ -217,7 +192,7 @@ function changeMainCard(id, name, types, image, color) {
     for (let i = 0; i < types.length; i++) {
         const type = types[i];
         document.getElementById('cardTypes').innerHTML += `<span>${type}</span>`;
-    }
+    };
 
     document.getElementById('cardImage').src = image;
     document.getElementById('openCard').style = `background-color: ${color};`;
@@ -353,3 +328,34 @@ function changeProgressColor() {
         element.classList.add(`progress-${getColor().substring(6, getColor().length - 1)}`);
     });
 }
+
+
+/**
+ * Checks if the user has scrolled to the bottom of the page
+ */
+function scrollCallbackFn() {
+    
+    if (rendering) {
+        return;
+    };
+
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+
+    if (Math.ceil(scrolled) === scrollable) {
+        bottomReached();
+    };
+};
+
+
+/**
+ * Executes rendering more pokemon and prevents from multiple executes while rendering
+ */
+async function bottomReached() {
+    rendering = true;
+    await renderMorePokedex();
+    rendering = false;
+}
+
+
+window.addEventListener('scroll', scrollCallbackFn);
