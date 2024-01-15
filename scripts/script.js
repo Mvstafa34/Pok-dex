@@ -4,6 +4,7 @@ let searchTerm;
 let loadedPokedex = 0;
 let rendering = false;
 let filtering = false;
+let cardOpen = false;
 
 
 /**
@@ -46,6 +47,9 @@ async function renderPokedex() {
 
     for (let i = 1; i < 31; i++) {
 
+        if (cardOpen) {
+            return;
+        }
         await loadPokemon(i);
 
         let id = getID(i);
@@ -72,6 +76,9 @@ async function renderMorePokedex() {
 
     for (let i = loadedPokedex; i < loadedPokedex + 30; i++) {
 
+        if (cardOpen) {
+            return;
+        }
         await loadPokemon(i);
 
 
@@ -126,6 +133,9 @@ async function filterPokemon(search) {
         let pokemonName = allPokemonNames['results'][i - 1]['name'];  
 
         if (pokemonName.startsWith(search)) {
+            if (cardOpen) {
+                return;
+            }
             await loadPokemon(i);
 
             let name = capFirst(currentPokemon['name']);
@@ -150,6 +160,8 @@ async function filterPokemon(search) {
  * @param {number} i - Index of the pokemon
  */
 async function openPokemon(i) {
+    cardOpen = true;
+
     await loadPokemon(i);
 
     let id = getID(i);
@@ -163,6 +175,8 @@ async function openPokemon(i) {
 
     document.body.classList.add('overflow-h');
     document.getElementById('cardContainer').classList.remove('d-none');
+
+    cardOpen = false;
 }
 
 
@@ -172,6 +186,8 @@ async function openPokemon(i) {
 function closePokemon() {
     document.getElementById('cardContainer').classList.add('d-none');
     document.body.classList.remove('overflow-h');
+
+    renderPokedex();
 }
 
 
