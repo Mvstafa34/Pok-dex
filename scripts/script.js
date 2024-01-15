@@ -74,6 +74,10 @@ async function renderPokedex() {
 async function renderMorePokedex() {
     let pokedex = document.getElementById('pokedex');
 
+    if (loadedPokedex == 0) {
+        return;
+    }
+
     for (let i = loadedPokedex; i < loadedPokedex + 30; i++) {
 
         if (cardOpen) {
@@ -187,6 +191,7 @@ function closePokemon() {
     document.getElementById('cardContainer').classList.add('d-none');
     document.body.classList.remove('overflow-h');
 
+    loadedPokedex = 0
     renderPokedex();
 }
 
