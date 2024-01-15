@@ -179,8 +179,6 @@ async function openPokemon(i) {
 
     document.body.classList.add('overflow-h');
     document.getElementById('cardContainer').classList.remove('d-none');
-
-    cardOpen = false;
 }
 
 
@@ -192,6 +190,7 @@ function closePokemon() {
     document.body.classList.remove('overflow-h');
 
     loadedPokedex = 0
+    cardOpen = false;
     renderPokedex();
 }
 
