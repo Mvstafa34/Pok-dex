@@ -1,12 +1,45 @@
 let currentPokemon;
-let pokemonNames = [];
+let allPokemon = [];
+let loadedPokedex;
+let rendering = false;
+
+
+window.addEventListener('scroll', scrollCallbackFn);
+
+
+/**
+ * Checks if the user has scrolled to the bottom of the page
+ */
+function scrollCallbackFn() {
+    if (rendering) {
+        return;
+    }
+
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+
+    if (Math.ceil(scrolled) === scrollable) {
+        bottomReached();
+    };
+};
+
+
+/**
+ * Executes rendering more pokemon and prevents from multiple executes while rendering
+ */
+async function bottomReached() {
+    rendering = true;
+    await renderMorePokedex();
+    rendering = false;
+}
 
 
 /**
  * Initializes the pokedex
  */
-function initPokedex() {
-    renderPokedex();
+async function initPokedex() {
+
+    await renderPokedex();
 }
 
 
@@ -20,26 +53,57 @@ function renderPokemonInfo() {
 
 
 /**
- * Renders the pokedex with the individual pokemons
+ * Renders the pokedex with 30 pokemons
  */
 async function renderPokedex() {
     let pokedex = document.getElementById('pokedex');
     pokedex.innerHTML = '';
 
-    for (let i = 1; i < 99; i++) {
+    for (let i = 1; i < 31; i++) {
 
-        await loadPokemon(i);
-        const element = currentPokemon;
+        if (allPokemon.length > i) {
+            currentPokemon = allPokemon[i - 1];
+        } else {
+            await loadPokemon(i);
+            allPokemon.push(currentPokemon);
+        };
 
         let id = getID(i);
         let name = capFirst(currentPokemon['name']);
         let types = getTypes();
         let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let color = getColor();
-        pokemonNames.push(name);
 
         pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
     }
+    loadedPokedex = 31;
+}
+
+
+/**
+ * Renders 30 more pokemons in the pokedex
+ */
+async function renderMorePokedex() {
+    let pokedex = document.getElementById('pokedex');
+
+    for (let i = loadedPokedex; i < loadedPokedex + 30; i++) {
+
+        if (allPokemon.length > i) {
+            currentPokemon = allPokemon[i - 1];
+        } else {
+            await loadPokemon(i);
+            allPokemon.push(currentPokemon);
+        };
+
+        let id = getID(i);
+        let name = capFirst(currentPokemon['name']);
+        let types = getTypes();
+        let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+        let color = getColor();
+
+        pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
+    }
+    loadedPokedex += 30;
 }
 
 
@@ -60,26 +124,31 @@ async function filterPokedex() {
     let pokedex = document.getElementById('pokedex');
 
     pokedex.innerHTML = '';
+    pokemonNames = [];
 
-    for (let i = 1; i < 151; i++) {
+    await filterPokemon(search);
 
-        await loadPokemon(i);
-        const element = currentPokemon;
+}
+//TODO: Fix search and lazy loading
 
-        let id = getID(i);
+
+async function filterPokemon(search) {
+    for (let i = 1; i < allPokemon.length; i++) {
+
+        currentPokemon = allPokemon[i - 1];
+
         let name = capFirst(currentPokemon['name']);
-        let types = getTypes();
-        let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-        let color = getColor();
-        pokemonNames.push(name);
-
         if (name.toLowerCase().includes(search)) {
+            let id = getID(i);
+            let types = getTypes();
+            let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+            let color = getColor();
+
             pokedex.innerHTML += returnPokedexHTML(id, name, types, image, color, i);
         }
     }
 }
-//TODO: Fix search and lazy loading
-
+// TODO: Add search by ID
 
 /**
  * Opens the card to the given pokemon
@@ -247,10 +316,10 @@ function renderMoves() {
     document.getElementById('moves').classList.add('card-menu-selected');
 
     cardInfo.innerHTML = '';
-    
+
     for (let i = 0; i < moves.length; i++) {
         const move = moves[i]['move']['name'];
-        
+
         cardInfo.innerHTML += /* html */`<span class="moves" style="background-color: ${color};">${capFirst(move)}</span>`
     };
 }
@@ -264,173 +333,4 @@ function changeProgressColor() {
         element.className = '';
         element.classList.add(`progress-${getColor().substring(6, getColor().length - 1)}`);
     });
-}
-
-
-/**
- * Returns the height of the "currentPokemon"
- * 
- * @returns - Height in feet and meters as a string
- */
-function getHeight() {
-    let height = currentPokemon['height'];
-    let meters = height / 10;
-    let feet = meters * 3.2808;
-    let feetSplit = feet.toString().split('.');
-    meters = meters.toString();
-    
-    if (meters.indexOf('.') > -1) {
-        meters += '0';
-    }
-
-    return `${feetSplit[0]}'${feetSplit[1].substring(0, 2)}" (${meters} m)`;
-}
-
-
-/**
- * Returns the weight of the "currentPokemon"
- * 
- * @returns - Weight in lbs and kg as a string
- */
-function getWeight() {
-    let weight = currentPokemon['weight'];
-    let kilograms = weight / 10;
-    let pounds = kilograms * 2.2046;
-    pounds = pounds.toString();
-
-    if (pounds.indexOf('.') > -1) {
-        pounds = pounds.substring(0, pounds.indexOf('.') + 2);
-    }
-
-    return `${pounds} lbs (${kilograms} kg)`;
-}
-
-
-/**
- * Returns the ID in the pokedex-style (#000)
- * 
- * @param {number} i - ID of the pokemon
- * @returns - ID in pokedex-style
- */
-function getID(i) {
-    if (i < 10) {
-        return '#00' + i;
-    } else if (i < 100) {
-        return '#0' + i;
-    } else if (i < 1000) {
-        return '#' + i;
-    }
-}
-
-
-/**
- * Returns the abilities of the "currentPokemon"
- * 
- * @returns - All abilities as a string
- */
-function getAbilities() {
-    let abilities = currentPokemon['abilities']
-    let abilitiesString;
-
-    for (let i = 0; i < abilities.length; i++) {
-        let ability = abilities[i]['ability']['name'];
-
-        if (ability.includes('-')) {
-            let abilitySplit = ability.split('-');
-            
-            ability = `${abilitySplit[0]} ${capFirst(abilitySplit[1])}`;
-        };
-
-        if (i == 0) {
-            abilitiesString = capFirst(ability);
-        } else {
-            abilitiesString += ', ' + capFirst(ability);
-        };
-    };
-
-    return abilitiesString;
-}
-
-
-/**
- * Returns all the types of the "currentPokemon"
- * 
- * @returns - Array with all types
- */
-function getTypes() {
-    let types = currentPokemon['types']
-    let typesArray = [];
-
-    for (let i = 0; i < types.length; i++) {
-        const type = types[i]['type']['name'];
-        typesArray.push(capFirst(type));
-    };
-
-    return typesArray;
-}
-
-
-/**
- * Returns the color for the first given pokemon type
- * 
- * @returns - Color Variable
- */
-function getColor() {
-    let type = currentPokemon['types'][0]['type']['name'];
-
-    if (type == 'normal') {
-        if (currentPokemon['types'][1]) {
-            type = currentPokemon['types'][1]['type']['name'];
-        };
-    };
-
-    switch (type) {
-        case 'grass':
-            return 'var(--green)';
-            break;
-        case 'bug':
-            return 'var(--lightGreen)';
-            break;
-        case 'fire':
-            return 'var(--red)';
-            break;
-        case 'water':
-            return 'var(--blue)';
-            break;
-        case 'fighting':
-        case 'normal':    
-            return 'var(--grey)';
-            break;
-        case 'electric':
-        case 'psychic':
-            return 'var(--yellow)';
-            break;
-        case 'poison':
-        case 'ghost':
-            return 'var(--purple)';
-            break;
-        case 'ground':
-        case 'rock':
-            return 'var(--brown)';
-            break;
-        case 'fairy':
-            return 'var(--pink)';
-            break;
-        case 'dark':
-            return 'var(--black)';
-            break;
-        default:
-            return 'var(--grey)';
-    }
-}
-
-
-/**
- * Capitalizes the first letter of a word
- * 
- * @param {string} str - A word
- * @returns - The word with first letter capitalized
- */
-function capFirst(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }

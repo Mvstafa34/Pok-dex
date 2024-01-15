@@ -8,7 +8,8 @@
     <title>Pokédex</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/font-faces.css">
-    <script src="HTML.js" defer></script>
+    <script src="html.js" defer></script>
+    <script src="helpfunctions.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -27,8 +28,8 @@
     </nav>
 
 
-    <div class="card-container d-none" id="cardContainer">
-        <div class="card">
+    <div onclick="closePokemon()" class="card-container d-none" id="cardContainer">
+        <div onclick="stopPropagation(event)" class="card">
             <div id="openCard">
                 <div class="card-buttons">
                     <img onclick="closePokemon()" src="./img/icons8-links-100.png" alt="Close">
