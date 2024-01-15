@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: helpfunctions.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: helpfunctions.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Returns the color for the first given pokemon type
+ * 
+ * @returns - Color Variable
+ */
+function getColor() {
+    let type = currentPokemon['types'][0]['type']['name'];
+
+    if (type == 'normal') {
+        if (currentPokemon['types'][1]) {
+            type = currentPokemon['types'][1]['type']['name'];
+        };
+    };
+
+    switch (type) {
+        case 'grass':
+            return 'var(--green)';
+            break;
+        case 'bug':
+            return 'var(--lightGreen)';
+            break;
+        case 'fire':
+            return 'var(--red)';
+            break;
+        case 'water':
+            return 'var(--blue)';
+            break;
+        case 'fighting':
+        case 'normal':    
+            return 'var(--grey)';
+            break;
+        case 'electric':
+        case 'psychic':
+            return 'var(--yellow)';
+            break;
+        case 'poison':
+        case 'ghost':
+            return 'var(--purple)';
+            break;
+        case 'ground':
+        case 'rock':
+            return 'var(--brown)';
+            break;
+        case 'fairy':
+            return 'var(--pink)';
+            break;
+        case 'dark':
+            return 'var(--black)';
+            break;
+        default:
+            return 'var(--grey)';
+    }
+}
+
+
+/**
+ * Returns the ID in the pokedex-style (#000)
+ * 
+ * @param {number} i - ID of the pokemon
+ * @returns - ID in pokedex-style
+ */
+function getID(i) {
+    if (i &lt; 10) {
+        return '#00' + i;
+    } else if (i &lt; 100) {
+        return '#0' + i;
+    } else if (i &lt; 1000) {
+        return '#' + i;
+    }
+}
+
+
+/**
+ * Returns all the types of the "currentPokemon"
+ * 
+ * @returns - Array with all types
+ */
+function getTypes() {
+    let types = currentPokemon['types']
+    let typesArray = [];
+
+    for (let i = 0; i &lt; types.length; i++) {
+        const type = types[i]['type']['name'];
+        typesArray.push(capFirst(type));
+    };
+
+    return typesArray;
+}
+
+
+/**
+ * Returns the height of the "currentPokemon"
+ * 
+ * @returns - Height in feet and meters as a string
+ */
+function getHeight() {
+    let height = currentPokemon['height'];
+    let meters = height / 10;
+    let feet = meters * 3.2808;
+    let feetSplit = feet.toString().split('.');
+    meters = meters.toString();
+    
+    if (meters.indexOf('.') > -1) {
+        meters += '0';
+    }
+    return `${feetSplit[0]}'${feetSplit[1].substring(0, 2)}" (${meters} m)`;
+}
+
+
+/**
+ * Returns the weight of the "currentPokemon"
+ * 
+ * @returns - Weight in lbs and kg as a string
+ */
+function getWeight() {
+    let weight = currentPokemon['weight'];
+    let kilograms = weight / 10;
+    let pounds = kilograms * 2.2046;
+    pounds = pounds.toString();
+
+    if (pounds.indexOf('.') > -1) {
+        pounds = pounds.substring(0, pounds.indexOf('.') + 2);
+    }
+    return `${pounds} lbs (${kilograms} kg)`;
+}
+
+
+/**
+ * Returns the abilities of the "currentPokemon"
+ * 
+ * @returns - All abilities as a string
+ */
+function getAbilities() {
+    let abilities = currentPokemon['abilities']
+    let abilitiesString;
+
+    for (let i = 0; i &lt; abilities.length; i++) {
+        let ability = abilities[i]['ability']['name'];
+
+        if (ability.includes('-')) {
+            let abilitySplit = ability.split('-');
+            
+            ability = `${abilitySplit[0]} ${capFirst(abilitySplit[1])}`;
+        };
+
+        if (i == 0) {
+            abilitiesString = capFirst(ability);
+        } else {
+            abilitiesString += ', ' + capFirst(ability);
+        };
+    };
+    return abilitiesString;
+}
+
+
+/**
+ * Capitalizes the first letter of a word
+ * 
+ * @param {string} str - A word
+ * @returns - The word with first letter capitalized
+ */
+function capFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
+/**
+ * Stops the inner element from executing the container onclick
+ * @param {event} event 
+ */
+function stopPropagation(event) {
+    event.stopPropagation();
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bottomReached">bottomReached</a></li><li><a href="global.html#capFirst">capFirst</a></li><li><a href="global.html#changeAboutCard">changeAboutCard</a></li><li><a href="global.html#changeBaseStatsCard">changeBaseStatsCard</a></li><li><a href="global.html#changeMainCard">changeMainCard</a></li><li><a href="global.html#changeProgressColor">changeProgressColor</a></li><li><a href="global.html#closePokemon">closePokemon</a></li><li><a href="global.html#filterPokedex">filterPokedex</a></li><li><a href="global.html#filterPokemon">filterPokemon</a></li><li><a href="global.html#getAbilities">getAbilities</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getHeight">getHeight</a></li><li><a href="global.html#getID">getID</a></li><li><a href="global.html#getTypes">getTypes</a></li><li><a href="global.html#getWeight">getWeight</a></li><li><a href="global.html#initPokedex">initPokedex</a></li><li><a href="global.html#loadPokemon">loadPokemon</a></li><li><a href="global.html#loadPokemonNames">loadPokemonNames</a></li><li><a href="global.html#openPokemon">openPokemon</a></li><li><a href="global.html#renderAbout">renderAbout</a></li><li><a href="global.html#renderBaseStats">renderBaseStats</a></li><li><a href="global.html#renderMorePokedex">renderMorePokedex</a></li><li><a href="global.html#renderMoves">renderMoves</a></li><li><a href="global.html#renderPokedex">renderPokedex</a></li><li><a href="global.html#returnAboutHTML">returnAboutHTML</a></li><li><a href="global.html#returnBaseStatsHTML">returnBaseStatsHTML</a></li><li><a href="global.html#returnPokedexHTML">returnPokedexHTML</a></li><li><a href="global.html#scrollCallbackFn">scrollCallbackFn</a></li><li><a href="global.html#stopPropagation">stopPropagation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jan 15 2024 21:27:46 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
