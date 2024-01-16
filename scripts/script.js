@@ -121,8 +121,8 @@ async function filterPokedex() {
  */
 async function filterPokemon(search) {
     for (let i = 1; i < 1302; i++) {
-        
-        let pokemonName = allPokemonNames['results'][i - 1]['name'];  
+
+        let pokemonName = allPokemonNames['results'][i - 1]['name'];
 
         if (pokemonName.includes(search)) {
 
@@ -134,7 +134,7 @@ async function filterPokemon(search) {
             let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
             let color = getColor();
 
-            if (!filtering ||searchTerm != search) {
+            if (!filtering || searchTerm != search) {
                 return;
             };
 
@@ -334,8 +334,8 @@ function changeProgressColor(color) {
  * Checks if the user has scrolled to the bottom of the page
  */
 function scrollCallbackFn() {
-    
-    if (rendering) {
+
+    if (rendering || loadedPokedex < 31) {
         return;
     };
 

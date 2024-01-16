@@ -26,7 +26,7 @@ function getColor() {
             return 'var(--blue)';
             break;
         case 'fighting':
-        case 'normal':    
+        case 'normal':
             return 'var(--grey)';
             break;
         case 'electric':
@@ -99,7 +99,7 @@ function getHeight() {
     let feet = meters * 3.2808;
     let feetSplit = feet.toString().split('.');
     meters = meters.toString();
-    
+
     if (meters.indexOf('.') > -1) {
         meters += '0';
     }
@@ -139,7 +139,7 @@ function getAbilities() {
 
         if (ability.includes('-')) {
             let abilitySplit = ability.split('-');
-            
+
             ability = `${abilitySplit[0]} ${capFirst(abilitySplit[1])}`;
         };
 

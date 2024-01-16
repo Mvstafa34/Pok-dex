@@ -176,7 +176,7 @@ nav {
     border-radius: 50%;
 }
 
-.card-buttons img:first-child:hover  {
+.card-buttons img:first-child:hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -221,8 +221,8 @@ nav {
     color: grey;
     font-weight: bold;
     border-radius: 3rem;
-    padding: 0.25rem 0.75rem 0.25rem 0.75rem ;
-    margin: -0.25rem -0.75rem -0.25rem -0.75rem ;
+    padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+    margin: -0.25rem -0.75rem -0.25rem -0.75rem;
 }
 
 .card-menu div:hover span {
