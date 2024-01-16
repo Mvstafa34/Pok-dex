@@ -4,7 +4,6 @@ let searchTerm;
 let loadedPokedex = 0;
 let rendering = false;
 let filtering = false;
-let cardOpen = false;
 
 
 /**
@@ -47,9 +46,6 @@ async function renderPokedex() {
 
     for (let i = 1; i < 31; i++) {
 
-        if (cardOpen) {
-            return;
-        }
         await loadPokemon(i);
 
         let id = getID(i);
@@ -74,17 +70,9 @@ async function renderPokedex() {
 async function renderMorePokedex() {
     let pokedex = document.getElementById('pokedex');
 
-    if (loadedPokedex == 0) {
-        return;
-    }
-
     for (let i = loadedPokedex; i < loadedPokedex + 30; i++) {
 
-        if (cardOpen) {
-            return;
-        }
         await loadPokemon(i);
-
 
         let id = getID(i);
         let name = capFirst(currentPokemon['name']);
@@ -132,14 +120,12 @@ async function filterPokedex() {
  * @returns - If searchterm change or not searching
  */
 async function filterPokemon(search) {
-    for (let i = 1; i < 500; i++) {
+    for (let i = 1; i < 1302; i++) {
         
         let pokemonName = allPokemonNames['results'][i - 1]['name'];  
 
-        if (pokemonName.startsWith(search)) {
-            if (cardOpen) {
-                return;
-            }
+        if (pokemonName.includes(search)) {
+
             await loadPokemon(i);
 
             let name = capFirst(currentPokemon['name']);
@@ -163,8 +149,7 @@ async function filterPokemon(search) {
  * 
  * @param {number} i - Index of the pokemon
  */
-async function openPokemon(i) {
-    cardOpen = true;
+async function openPokemon(i, color) {
 
     await loadPokemon(i);
 
@@ -172,11 +157,12 @@ async function openPokemon(i) {
     let name = capFirst(currentPokemon['name']);
     let types = getTypes();
     let image = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    let color = getColor();
 
     changeMainCard(id, name, types, image, color);
     renderAbout();
 
+    document.getElementById('baseStats').setAttribute('onclick', `renderBaseStats('${color}')`);
+    document.getElementById('moves').setAttribute('onclick', `renderMoves('${color}')`);
     document.body.classList.add('overflow-h');
     document.getElementById('cardContainer').classList.remove('d-none');
 }
@@ -188,10 +174,6 @@ async function openPokemon(i) {
 function closePokemon() {
     document.getElementById('cardContainer').classList.add('d-none');
     document.body.classList.remove('overflow-h');
-
-    loadedPokedex = 0
-    cardOpen = false;
-    renderPokedex();
 }
 
 
@@ -260,7 +242,7 @@ function changeAboutCard(height, weight, abilities, baseExp) {
 /**
  * Renders the default base stats-section of the card and selects the tab
  */
-function renderBaseStats() {
+function renderBaseStats(color) {
     document.getElementById('cardInfo').innerHTML = returnBaseStatsHTML();
     let selectedTab = document.querySelector('.card-menu-selected');
 
@@ -278,6 +260,7 @@ function renderBaseStats() {
     let spd = currentPokemon['stats'][5]['base_stat'];
 
     changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd);
+    changeProgressColor(color);
 }
 
 
@@ -309,16 +292,13 @@ function changeBaseStatsCard(hp, atk, def, spAtk, spDef, spd) {
 
     document.getElementById('spd').innerHTML = spd;
     document.getElementById('spdProgress').value = spd;
-
-    changeProgressColor();
 }
 
 
 /**
  * Renders the moves-section of the card with the moves of "currentPokemon" and selects the tab
  */
-function renderMoves() {
-    let color = getColor();
+function renderMoves(color) {
     let moves = currentPokemon['moves']
     let cardInfo = document.getElementById('cardInfo');
     let selectedTab = document.querySelector('.card-menu-selected');
@@ -342,10 +322,10 @@ function renderMoves() {
 /**
  * Changes the color of the progress bar to the "currentPokemon" color
  */
-function changeProgressColor() {
+function changeProgressColor(color) {
     document.querySelectorAll('progress').forEach((element) => {
         element.className = '';
-        element.classList.add(`progress-${getColor().substring(6, getColor().length - 1)}`);
+        element.classList.add(`progress-${color.substring(6, color.length - 1)}`);
     });
 }
 

@@ -11,7 +11,7 @@
 function returnPokedexHTML(id, name, types, image, color, i) {
     if (types.length == 1) {
         return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
+        <div class="pokemon" onclick="openPokemon(${i}, '${color}')" style="background-color: ${color};">
             <span id="pokemonID">${id}</span>
             <h2 id="pokemonName">${name}</h2>
             <div class="pokemonContainer">
@@ -23,7 +23,7 @@ function returnPokedexHTML(id, name, types, image, color, i) {
         </div>`;
     } else if (types.length == 2) {
         return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
+        <div class="pokemon" onclick="openPokemon(${i}, '${color}')" style="background-color: ${color};">
             <span id="pokemonID">${id}</span>
             <h2 id="pokemonName">${name}</h2>
             <div class="pokemonContainer">
@@ -36,7 +36,7 @@ function returnPokedexHTML(id, name, types, image, color, i) {
         </div>`;
     } else if (types.length == 3) {
         return /* html */ `
-        <div class="pokemon" onclick="openPokemon(${i})" style="background-color: ${color};">
+        <div class="pokemon" onclick="openPokemon(${i}, '${color}')" style="background-color: ${color};">
             <span id="pokemonID">${id}</span>
             <h2 id="pokemonName">${name}</h2>
             <div class="pokemonContainer">
